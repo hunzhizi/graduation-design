@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.hunzhizi.dao.LabelDao">
+<!--    List<Integer> selectByField(@Param("alsit") List<String> list);-->
+    <select id="selectByField" resultType="java.lang.Integer" >
+        select photo_id from label
+        <where>
+            <foreach collection="alsit" item="item" separator="and" open="" close="" >
+                ${item}=1
+            </foreach>
+        </where>
+    </select>
+
+<!--    Boolean createLabel(Label label);-->
+    <insert id="createLabel" parameterType="label">
+        insert into label(photo_id,person,bicycle,car,motorcycle,airplane,bus,train,truck,boat,traffic_light,fire_hydrant,
+stop_sign,parking_meter,bench,bird,cat,dog,horse,sheep,cow,elephant,bear,zebra,giraffe,backpack,umbrella,handbag,tie,
+suitcase,frisbee,skis,snowboard,sports_ball,kite,baseball_bat,baseball_glove,skateboard,surfboard,tennis_racket,bottle,
+wine_glass,cup,fork,knife,spoon,bowl,banana,apple,sandwich,orange,broccoli,carrot,hot_dog,pizza,donut,cake,chair,
+couch,potted_plant,bed,dining_table,toilet,tv,laptop,mouse,remote,keyboard,cell_phone,microwave,oven,toaster,sink,
+refrigerator,book,clock,vase,scissors,teddy_bear,hair_drier,toothbrush)
+        values(#{photoId},#{person},#{bicycle},#{car},#{motorcycle},#{airplane},#{bus},#{train},#{truck},#{boat},#{trafficLight},#{fireHydrant},#{stopSign},#{parkingMeter},#{bench},#{bird},#{cat},#{dog},#{horse},#{sheep},#{cow},#{elephant},#{bear},#{zebra},#{giraffe},#{backpack},#{umbrella},#{handbag},#{tie},#{suitcase},#{frisbee},#{skis},#{snowboard},#{sportsBall},#{kite},#{baseballBat},#{baseballGlove},#{skateboard},#{surfboard},#{tennisRacket},#{bottle},#{wineGlass},#{cup},#{fork},#{knife},#{spoon},#{bowl},#{banana},#{apple},#{sandwich},#{orange},#{broccoli},#{carrot},#{hot_dog},#{pizza},#{donut},#{cake},#{chair},#{couch},#{pottedPlant},#{bed},#{diningTable},#{toilet},#{tv},#{laptop},#{mouse},#{remote},#{keyboard},#{cellPhone},#{microwave},#{oven},#{toaster},#{sink},#{refrigerator},#{book},#{clock},#{vase},#{scissors},#{teddyBear},#{hairDrier},#{toothbrush}
+        )
+    </insert>
+</mapper>
