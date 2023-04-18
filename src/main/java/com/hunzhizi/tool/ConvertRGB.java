@@ -10,8 +10,21 @@ import java.util.Arrays;
  */
 public class ConvertRGB {
     public static String int2Hex(Integer r,Integer g,Integer b){
-        return "#"+Integer.toHexString(r) + Integer.toHexString(g) + Integer.toHexString(b);
+        return "#"+toHexString(r) + toHexString(g) + toHexString(b);
 
+    }
+
+    /**
+     * 由int返回string 保留两位
+     * @param i
+     * @return
+     */
+    public static String toHexString(int i){
+        String res = Integer.toHexString(i);
+        if(res.length()==1){
+            res = "0" + res;
+        }
+        return res;
     }
     public static int[] hex2int(String rgb){
         char[] chars = rgb.toCharArray();

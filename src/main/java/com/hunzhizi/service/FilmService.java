@@ -16,4 +16,6 @@ public interface FilmService {
     Film getFilmByFilmId(Integer filmId);
 
     Film getFilmByName(String filmName);
+
+    List<Integer> getFilmIdByType(Integer typeId);
 }

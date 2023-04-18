@@ -56,6 +56,9 @@ public class FilmDaoTest {
     public void getFilmByName(){
         Film filmByName = test.getFilmByName("魔兽");
         System.out.println(filmByName==null);
+        Film filmByName1 = test.getFilmByName("飞天魔警\n");
+        System.out.println(filmByName1==null);
+
     }
 
 }

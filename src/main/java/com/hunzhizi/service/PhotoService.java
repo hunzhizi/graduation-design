@@ -1,5 +1,6 @@
 package com.hunzhizi.service;
 
+import com.github.pagehelper.PageInfo;
 import com.hunzhizi.domain.Photo;
 
 import java.util.List;
@@ -14,7 +15,13 @@ public interface PhotoService {
 
     boolean createPhoto(Photo photo);
 
-    List<Photo> getPhotoByPhotoIds(List<Integer> ids);
+    PageInfo<Photo> getPhotoByPhotoIds(List<Integer> ids, int pageNum, int pageSize);
 
     Photo getPhotoByPhotoId(int photoId);
+
+    List<Integer> getPhotoIdByFilmId(int filmId);
+
+    List<Photo> getAllPhotos();
+
+    Integer getNumOfPhotos();
 }

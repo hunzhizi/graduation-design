@@ -4,6 +4,7 @@ import com.hunzhizi.dao.LabelDao;
 import com.hunzhizi.domain.Label;
 import com.hunzhizi.service.LabelService;
 import com.hunzhizi.tool.PythonCall;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * description:
  */
 @Service
+@Slf4j
 public class LabelServiceImpl implements LabelService {
     @Autowired
     LabelDao labelDao;
@@ -29,19 +31,19 @@ public class LabelServiceImpl implements LabelService {
     @Override
     public List<Integer> getLabelByField(String fields) {
         //对字符串进行解析
-        char[] chars = fields.toCharArray();
+        char[] chars = fields.trim().toCharArray();
         StringBuffer stringBuffer = new StringBuffer();
         ArrayList<String> res = new ArrayList<>();
         for (char aChar : chars) {
             if(aChar=='#'){
                 res.add(stringBuffer.toString());
                 stringBuffer = new StringBuffer();
+                continue;
             }
             stringBuffer.append(aChar);
         }
         res.add(stringBuffer.toString());
-        labelDao.selectByField(res);
-        return null;
+        return labelDao.selectByField(res);
     }
 
     @Override
@@ -51,6 +53,10 @@ public class LabelServiceImpl implements LabelService {
         label.setPhotoId(photoId);
         for (Integer integer : integers) {
             label.setLabelByOrder(integer);
+        }
+        if(integers==null || integers.size()==0){
+            log.info("label图片失败");
+            return false;
         }
 
         return labelDao.createLabel(label);

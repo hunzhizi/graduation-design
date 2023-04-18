@@ -1,5 +1,7 @@
 package com.hunzhizi.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hunzhizi.dao.PhotoDao;
 import com.hunzhizi.domain.Photo;
 import com.hunzhizi.service.PhotoService;
@@ -26,12 +28,29 @@ public class PhotoServiceImpl implements PhotoService {
     }
 
     @Override
-    public List<Photo> getPhotoByPhotoIds(List<Integer> ids) {
-        return photoDao.selectByPhotoIds(ids);
+    public PageInfo<Photo> getPhotoByPhotoIds(List<Integer> ids, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<Photo> photos = photoDao.selectByPhotoIds(ids);
+        return new PageInfo<>(photos);
     }
 
     @Override
     public Photo getPhotoByPhotoId(int photoId) {
         return photoDao.selectByPhotoId(photoId);
+    }
+
+    @Override
+    public List<Integer> getPhotoIdByFilmId(int filmId) {
+        return photoDao.getPhotoIdByFilmId(filmId);
+    }
+
+    @Override
+    public List<Photo> getAllPhotos() {
+        return photoDao.getAllPhoto();
+    }
+
+    @Override
+    public Integer getNumOfPhotos() {
+        return photoDao.getNumOfPhotos();
     }
 }

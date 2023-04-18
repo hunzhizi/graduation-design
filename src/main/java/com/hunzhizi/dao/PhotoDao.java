@@ -25,4 +25,14 @@ public interface PhotoDao {
             "values(#{filmId}, #{photoFormat}, #{photoAddress}, #{photoLabelAddress})")
     @Options(useGeneratedKeys = true,keyColumn = "photo_id",keyProperty = "photoId")
     Boolean createPhoto(Photo photo);
+
+    @Select("select photo_id from photo where film_id = #{filmId}")
+    List<Integer> getPhotoIdByFilmId(Integer filmId);
+
+
+    @Select("select * from photo")
+    List<Photo> getAllPhoto();
+
+    @Select("select count(*) from photo")
+    Integer getNumOfPhotos();
 }

@@ -109,6 +109,77 @@ public class PythonCall {
         }
         return strings;
     }
+    public static List<String> analyzeColor(String imgAddress,int themeNum) {
+        Runtime runtime = Runtime.getRuntime();
+        StringBuilder rgb = new StringBuilder();
+        log.info("开始执行脚本");
+        try {
+            Process process = runtime.exec("cmd /c  E:\\py\\conda\\anaconda\\installing\\envs\\python3_ml\\python.exe " +
+                    "E:/py/code_practice/graduationDesign/ImageToColors.py" +
+                    " --directory " + imgAddress +
+                    " --num-theme " + themeNum);
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    String line;
+                    try {
+                        BufferedReader stderr = new BufferedReader(new InputStreamReader(process.getErrorStream(), "GBK"));
+                        while ((line = stderr.readLine()) != null) {
+                            System.out.println("stderr:" + line);
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            }.start();
+
+            log.info("==============打印结果==============");
+            new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    String line;
+                    try {
+                        BufferedReader stdout = new BufferedReader(new InputStreamReader(process.getInputStream(), "GBK"));
+                        while ((line = stdout.readLine()) != null) {
+                            log.info("stdout:" + line);
+                            rgb.append(line);
+
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+            }.start();
+            int exitVal = process.waitFor();
+            if (0 != exitVal) {
+                System.out.println("执行脚本失败");
+            }
+            System.out.println("执行脚本成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<String> strings = new ArrayList<>();
+        rgb.deleteCharAt(0);
+        rgb.deleteCharAt(rgb.length() - 1);
+        while (rgb.length() > 0) {
+            int last = rgb.lastIndexOf("]");
+            last++;
+            if (last < rgb.length()) {
+                rgb.delete(last, rgb.length());
+            }
+            int left = rgb.lastIndexOf("[");
+            strings.add(rgb.substring(left));
+            rgb.delete(left, rgb.length());
+        }
+        for (String string : strings) {
+            System.out.println(string);
+        }
+        return strings;
+    }
 
     /**
      * 对图片进行打标，将图片保存,

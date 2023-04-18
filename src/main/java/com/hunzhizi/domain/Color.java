@@ -1,5 +1,10 @@
 package com.hunzhizi.domain;
 
+import com.hunzhizi.tool.ConvertRGB;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author 魂之子
  * @since 2023-03-11 21:28
@@ -212,6 +217,16 @@ public class Color {
     }
 
     public Color() {
+    }
+    public List<String> convert2String(){
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add(ConvertRGB.int2Hex(themeOneR,themeOneG,themeOneB));
+        strings.add(ConvertRGB.int2Hex(themeTwoR,themeTwoG,themeTwoB));
+        strings.add(ConvertRGB.int2Hex(themeThreeR,themeThreeG,themeThreeB));
+        strings.add(ConvertRGB.int2Hex(themeFourR,themeFourG,themeFourB));
+        strings.add(ConvertRGB.int2Hex(themeFiveR,themeFiveG,themeFiveB));
+        strings.add(ConvertRGB.int2Hex(themeSixR,themeSixG,themeSixB));
+        return strings;
     }
 
     @Override

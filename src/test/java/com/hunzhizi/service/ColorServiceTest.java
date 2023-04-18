@@ -1,6 +1,7 @@
 package com.hunzhizi.service;
 
 import com.hunzhizi.GraduationDesignApplication;
+import com.hunzhizi.domain.Color;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +22,9 @@ public class ColorServiceTest {
     ColorService service;
     @Test
     public void analyzeColor(){
-        boolean b = service.analyzeColor("person.jpg", 1);
+        Color color = new Color();
+        color.setPhotoId(1);
+        boolean b = service.analyzeColor("person.jpg", color);
         System.out.println(b);
     }
 }

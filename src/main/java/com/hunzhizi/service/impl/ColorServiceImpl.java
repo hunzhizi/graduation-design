@@ -1,5 +1,6 @@
 package com.hunzhizi.service.impl;
 
+import com.hunzhizi.controller.result.dto.Analysis;
 import com.hunzhizi.dao.ColorDao;
 import com.hunzhizi.domain.Color;
 import com.hunzhizi.service.ColorService;
@@ -60,11 +61,17 @@ public class ColorServiceImpl implements ColorService {
         return colorDao.createColor(color);
     }
 
+    /**
+     * 传入一个设置过colorid的过来
+     * @param imgName
+     * @param color
+     * @return
+     */
     @Override
-    public boolean analyzeColor(String imgName, int photoId) {
+    public boolean analyzeColor(String imgName, Color color) {
         List<String> strings = PythonCall.analyzeColor(PythonCall.UPLODA_DIR + imgName);
-        Color color = new Color();
-        color.setPhotoId(photoId);
+//        Color color = new Color();
+//        color.setPhotoId(photoId);
         color.setThemeOneR(ConvertRGB.parsePyReturnValue(strings.get(0))[0]);
         color.setThemeOneG(ConvertRGB.parsePyReturnValue(strings.get(0))[1]);
         color.setThemeOneB(ConvertRGB.parsePyReturnValue(strings.get(0))[2]);
@@ -85,6 +92,18 @@ public class ColorServiceImpl implements ColorService {
         color.setThemeSixB(ConvertRGB.parsePyReturnValue(strings.get(5))[2]);
 
         return createColor(color);
+
+    }
+
+    @Override
+    public List<String> analyzeColorPrecise(String imgName,int themeNum) {
+        List<String> strings = PythonCall.analyzeColor(PythonCall.UPLODA_DIR + imgName,themeNum);
+        ArrayList<String> res = new ArrayList<>();
+        for (int i = 0; i < strings.size(); i++) {
+            int[] ints = ConvertRGB.parsePyReturnValue(strings.get(i));
+            res.add(ConvertRGB.int2Hex(ints[0],ints[1],ints[2]));
+        }
+        return res;
 
     }
 

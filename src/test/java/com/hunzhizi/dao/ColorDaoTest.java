@@ -45,4 +45,10 @@ public class ColorDaoTest {
         integers.add(2);
         System.out.println(test.selectByIds(integers));
     }
+
+    @Test
+    public void selectByPhotoId(){
+        Color color = test.selectByPhotoId(15);
+        System.out.println(color);
+    }
 }

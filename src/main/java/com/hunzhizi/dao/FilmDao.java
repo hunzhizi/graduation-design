@@ -24,9 +24,9 @@ public interface FilmDao {
             "where film_id = #{filmId}")
     Film getFilmsById(Integer filmId);
 
-    @Select("select * from film " +
+    @Select("select film_id from film " +
             "where type = #{type}")
-    List<Film> getFilmsByType(Integer type);
+    List<Integer> getFilmsByType(Integer type);
 
     @Select("select * from film " +
             "where film_name = #{filmName}")

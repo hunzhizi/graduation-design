@@ -6,7 +6,7 @@
 <!--    @Insert("insert into film( type, desc)" +-->
 <!--    "values('#{film.type}','#{film.desc}')")-->
 <!--    Boolean createFilm(@Param(value="film") Films film);-->
-    <insert id="createFilm" parameterType="Film">
+    <insert id="createFilm" parameterType="Film" useGeneratedKeys="true" keyProperty="filmId" keyColumn="film_id">
         insert into film(`film_name`,`type`, `desc`)
         values(#{filmName},#{type},#{desc})
     </insert>

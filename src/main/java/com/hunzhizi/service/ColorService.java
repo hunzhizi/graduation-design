@@ -1,5 +1,6 @@
 package com.hunzhizi.service;
 
+import com.hunzhizi.controller.result.dto.Analysis;
 import com.hunzhizi.domain.Color;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,5 +24,7 @@ public interface ColorService {
 
     Boolean createColor(Color color);
 
-    boolean analyzeColor(String imgName,int photoId);
+    boolean analyzeColor(String imgName,Color color);
+
+    List<String> analyzeColorPrecise(String imgName, int ThemeNum);
 }
